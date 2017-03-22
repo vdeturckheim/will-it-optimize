@@ -44,6 +44,10 @@ var runner = {
         // TODO: verify that test is a file
         // currently, nested directories are not supported
 
+        if (test.indexOf('min-4') > -1 && parseInt(process.version.split('.')[0][1]) < 4){
+          continue;
+        }
+
         self.started++;
         self.driver.send({
           test: test
@@ -102,15 +106,7 @@ var runner = {
       }
     };
 
-    for (var i = 0, il = this.tests.length; i < il; ++i) {
-      var result = this.tests[i];
-
-      if (result.error) {
-        console.error(result.description + ': ' + result.error.message);
-      } else {
-        console.log(result.description + ': ' + getOptimizationStatus(result.optimizationStatus, true));
-      }
-    }
+    console.log(JSON.stringify(this.tests));
   }
 };
 
